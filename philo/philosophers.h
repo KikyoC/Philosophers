@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:07:16 by togauthi          #+#    #+#             */
-/*   Updated: 2024/12/19 12:59:18 by togauthi         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:14:03 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PHILOSOPHERS_H
 // # include <string.h>
 # include <pthread.h>
+# include <limits.h>
+#include <stdio.h>
 
 typedef struct	s_philosopher
 {
@@ -32,6 +34,9 @@ typedef struct	s_table
 	struct s_philosopher	*first;
 	int						eat_time;
 	int						sleep_time;
+	int						die_time;
 } 	t_table;
+
+int	ft_atoi(const char *nptr);
 
 #endif
