@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   destroy_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 13:06:30 by togauthi          #+#    #+#             */
-/*   Updated: 2024/12/19 17:16:37 by togauthi         ###   ########.fr       */
+/*   Created: 2024/12/19 15:39:04 by togauthi          #+#    #+#             */
+/*   Updated: 2024/12/19 17:15:33 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	print_table(t_table *table)
+void	*destroy(t_table *table)
 {
 	t_element	*current;
+	t_element	*next;
 
 	current = table->first;
-	if (!current)
-		printf("Current does not exists\n");
 	while (current)
 	{
-		printf("%s\n", current->type ? "Fork" : "Philosopher");
-		current = current->next;
+		if (current->type && current->value)
+			pthread_mutex_destroy(current->value);
+		else if (!current->type && current->value)
+			pthread_exit(current->value);
+		next = current->next;
+		free(current);
+		current = next;
 	}
-}
-
-int	main(int argc, char **argv)
-{
-	t_table			table;
-
-	(void) argc;
-	(void) argv;
-	create_table(&table, 5);
-	print_table(&table);
-	destroy(&table);
-	return (1);
+	return (NULL);
 }

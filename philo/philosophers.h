@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:07:16 by togauthi          #+#    #+#             */
-/*   Updated: 2024/12/19 14:30:37 by togauthi         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:16:55 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,29 @@
 # include <pthread.h>
 # include <limits.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
 
-typedef struct s_philosopher
+typedef struct s_element
 {
-	struct s_fork	*previous;	
-	struct s_fork	*next;	
-}	t_philosopher;
+	struct s_element	*previous;	
+	struct s_element	*next;
+	int					type;
+	void				*value;
 
-typedef struct s_fork
-{
-	struct s_philosopher	*previous;	
-	struct s_philosopher	*next;
-}	t_fork;
+}	t_element;
 
 typedef struct s_table
 {
-	struct s_philosopher	*first;
-	int						eat_time;
-	int						sleep_time;
-	int						die_time;
+	struct s_element	*first;
+	int					eat_time;
+	int					sleep_time;
+	int					die_time;
 }	t_table;
 
-int	ft_atoi(const char *nptr);
-
+int		ft_atoi(const char *nptr);
+void	*destroy_philosophers(t_element **philosophers);
+void	*destroy_forks(t_element **forks);
+void	create_table(t_table *table, int count);
+void	*destroy(t_table *table);
 #endif

@@ -6,14 +6,16 @@
 #    By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 13:14:36 by togauthi          #+#    #+#              #
-#    Updated: 2024/12/19 14:27:05 by togauthi         ###   ########.fr        #
+#    Updated: 2024/12/19 16:37:19 by togauthi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME= philo
 
 SRCS= philosophers.c \
-	utils/atoi.c
+	utils/atoi.c \
+	create_table.c \
+	destroy_table.c
 
 OBJS = $(addprefix objs/, $(SRCS:.c=.o));
 
@@ -41,14 +43,8 @@ objs/%.o: %.c
 $(NAME): $(OBJS_DIR) $(OBJS)
 	@echo "$(YELLOW)Compiling objs... $(WHITE)"
 	@cc $(CFLAGS) -o $(NAME) $(OBJS)
-	@echo "$(GREEN)Objs compiled.$(WHITE)"
-	@echo "$(AQUA)mmmmm  #        \"    \"\"#                                #"
-	@echo "$(AQUA)#   \"# # mm   mmm      #     mmm    mmm    mmm   mmmm   # mm    mmm    m mm    mmm"
-	@echo "$(AQUA)#mmm#\" #\"  #    #      #    #\" \"#  #   \"  #\" \"#  #\" \"#  #\"  #  #\"  #   #\"  \"  #   \""
-	@echo "$(AQUA)#      #   #    #      #    #   #   \"\"\"m  #   #  #   #  #   #  #\"\"\"\"   #       \"\"\"m"
-	@echo "$(AQUA)#      #   #  mm#mm    \"mm  \"#m#\"  \"mmm\"  \"#m#\"  ##m#\"  #   #  \"#mm\"   #      \"mmm\""
-	@echo "$(AQUA)                                                 #         "
-	@echo "$(AQUA)                                                 \"$(WHITE)"
+	@echo "$(GREEN)Objs compiled.$(AQUA)"
+	@figlet -t philosophers
 
 clean:
 	@echo "$(YELLOW)Cleaning objs..."
