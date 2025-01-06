@@ -6,62 +6,65 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:35:05 by togauthi          #+#    #+#             */
-/*   Updated: 2024/12/19 17:15:22 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/06 13:22:06 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	add_back(t_table *table, t_element *element)
+void	add_back(t_table *table, t_philosopher *philosopher)
 {
-	t_element	*current;
-
+	t_philosopher	*current;
+	
 	current = table->first;
 	if (!current)
 	{
-		table->first = element;
+		table->first = philosopher;
+		philosopher->previous = NULL;
+		philosopher->right = philosopher->left;
 		return ;
 	}
 	while (current->next)
 		current = current->next;
-	current->next = element;
+	current->next = philosopher;
+	philosopher->previous = current;
+	current->right = philosopher->left;
+	philosopher->right = table->first->left;
 }
 
-void	assign_values(t_table *table)
+t_philosopher	*assign_philosopher(t_philosopher *philosopher)
 {
-	t_element	*current;
+	pthread_mutex_t lock;
 
-	current = table->first;
-	while (current)
+	if (pthread_mutex_init(&lock, NULL) != 0)
 	{
-		if (current->type)
-			pthread_mutex_init(current->value, NULL);
-		// else: create thread
-		current = current->next;
+		free(philosopher);
+		return (NULL);
 	}
+	philosopher->left = lock;
+	philosopher->previous = NULL;
+	philosopher->next = NULL;
+	return (philosopher);
 }
 
-void	create_table(t_table *table, int count)
+t_table	*create_table(t_table *table, int count)
 {
-	int			i;
-	t_element	*current;
+	int				i;
+	t_philosopher	*philosopher;
 
 	i = 0;
 	table->first = NULL;
-	count *= 2;
 	while (i < count)
 	{
-		current = malloc(sizeof(t_element));
-		if (!current)
-		{
-			destroy(table);
-			return ;
-		}
-		current->next = NULL;
-		current->previous = NULL;
-		current->type = i % 2 == 0;
-		current->value = NULL;
-		add_back(table, current);
+		philosopher = ft_calloc(1, sizeof(t_philosopher));
+		if (!philosopher)
+			return (destroy(table));
+		philosopher = assign_philosopher(philosopher);
+		if (!philosopher)
+			return (destroy(table));
+		add_back(table, philosopher);
+		philosopher->id = i;
 		i++;
 	}
+	return (table);
 }

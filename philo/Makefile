@@ -6,7 +6,7 @@
 #    By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 13:14:36 by togauthi          #+#    #+#              #
-#    Updated: 2024/12/19 16:37:19 by togauthi         ###   ########.fr        #
+#    Updated: 2025/01/06 09:32:57 by togauthi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME= philo
 
 SRCS= philosophers.c \
 	utils/atoi.c \
+	utils/ft_calloc.c \
 	create_table.c \
 	destroy_table.c
 

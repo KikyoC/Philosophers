@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_table.c                                    :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 15:39:04 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/06 12:54:28 by togauthi         ###   ########.fr       */
+/*   Created: 2025/01/06 09:30:43 by togauthi          #+#    #+#             */
+/*   Updated: 2025/01/06 09:32:39 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../philosophers.h"
 
-void	*destroy(t_table *table)
+void	ft_bzero(void *s, size_t n)
 {
-	t_philosopher	*current;
-	t_philosopher	*next;
-	int	i;
+	size_t		i;
+	char		*var;
 
 	i = 0;
-	current = table->first;
-	while (current)
+	var = (char *)s;
+	while (i < n)
 	{
-		pthread_mutex_destroy(&current->left);
-		next = current->next;
-		free(current);
-		current = next;
+		var[i] = 0;
 		i++;
 	}
-	return (NULL);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*alloc;
+
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	if (nmemb > (size_t) - 1 / size)
+		return (NULL);
+	alloc = malloc(nmemb * size);
+	if (!alloc)
+		return (NULL);
+	ft_bzero(alloc, nmemb * size);
+	return (alloc);
 }
