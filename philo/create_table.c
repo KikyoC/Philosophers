@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:35:05 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/06 13:22:06 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:24:58 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,31 @@ void	add_back(t_table *table, t_philosopher *philosopher)
 	philosopher->right = table->first->left;
 }
 
-t_philosopher	*assign_philosopher(t_philosopher *philosopher)
+t_philosopher	*assign_philosopher(t_philosopher *philosopher, t_table *table)
 {
-	pthread_mutex_t lock;
-
-	if (pthread_mutex_init(&lock, NULL) != 0)
-	{
-		free(philosopher);
-		return (NULL);
-	}
-	philosopher->left = lock;
+	philosopher->left = &table->forks[philosopher->id - 3];
+	philosopher->right = &table->forks[philosopher->id - 2];
 	philosopher->previous = NULL;
 	philosopher->next = NULL;
 	return (philosopher);
+}
+
+pthread_mutex_t	*get_forks(int count)
+{
+	pthread_mutex_t	*res;
+	int				i;
+
+	res = ft_calloc(count + 1, sizeof(pthread_mutex_t));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (i < count)
+	{
+		if (pthread_mutex_init(&res[i], NULL) != 0)
+			return (free_forks(res, i));
+		i++;
+	}
+	return (res);
 }
 
 t_table	*create_table(t_table *table, int count)
@@ -54,16 +66,21 @@ t_table	*create_table(t_table *table, int count)
 
 	i = 0;
 	table->first = NULL;
+	table->forks = get_forks(count);
+	if (!table->forks)
+		return (NULL);
 	while (i < count)
 	{
 		philosopher = ft_calloc(1, sizeof(t_philosopher));
 		if (!philosopher)
 			return (destroy(table));
-		philosopher = assign_philosopher(philosopher);
+		philosopher = assign_philosopher(philosopher, table);
 		if (!philosopher)
 			return (destroy(table));
 		add_back(table, philosopher);
 		philosopher->id = i;
+		// pthread_create(&(philosopher->thread), NULL, &routine, NULL);
+		pthread_join(philosopher->thread, NULL);
 		i++;
 	}
 	return (table);
