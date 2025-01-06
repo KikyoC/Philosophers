@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:07:16 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/06 16:19:09 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/06 17:58:45 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,6 @@ void	*ft_calloc(size_t nmemb, size_t size);
 t_table	*create_table(t_table *table, int count);
 void	*destroy(t_table *table);
 void	*free_forks(pthread_mutex_t *forks, int count);
+void	*eat(t_philosopher *philosopher, unsigned int time);
+void	routine(t_table *table);
 #endif

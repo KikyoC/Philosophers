@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:35:05 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/06 16:24:58 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/06 18:00:20 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,8 @@ t_table	*create_table(t_table *table, int count)
 		philosopher = assign_philosopher(philosopher, table);
 		if (!philosopher)
 			return (destroy(table));
+		philosopher->id = i + 1;
 		add_back(table, philosopher);
-		philosopher->id = i;
-		// pthread_create(&(philosopher->thread), NULL, &routine, NULL);
-		pthread_join(philosopher->thread, NULL);
 		i++;
 	}
 	return (table);

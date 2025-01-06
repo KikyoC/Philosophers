@@ -6,7 +6,7 @@
 #    By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 13:14:36 by togauthi          #+#    #+#              #
-#    Updated: 2025/01/06 09:32:57 by togauthi         ###   ########.fr        #
+#    Updated: 2025/01/06 17:55:21 by togauthi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,11 @@ NAME= philo
 
 SRCS= philosophers.c \
 	utils/atoi.c \
+	utils/eat.c \
 	utils/ft_calloc.c \
 	create_table.c \
-	destroy_table.c
+	destroy_table.c \
+	routine.c
 
 OBJS = $(addprefix objs/, $(SRCS:.c=.o));
 
