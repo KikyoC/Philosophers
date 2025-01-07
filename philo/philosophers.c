@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:06:30 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/06 17:59:58 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:30:11 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,10 @@ void	check_table(t_table *table)
 int	main(int argc, char **argv)
 {
 	t_table			table;
-	// pthread_t		thread;	
 
 	(void) argc;
 	(void) argv;
-	create_table(&table, 15);
-	// pthread_create(&thread, NULL, &routine, NULL);
-	// pthread_join(thread, NULL);
-	// pthread_detach(thread);
-	// pthread_mutex_lock((&table)->first->next->next->left);
-	// printf("Locked\n");
-	// check_table(&table);
+	create_table(&table, 14);
 	routine(&table);
 	destroy(&table);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:49:48 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/06 17:59:43 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:57:00 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 void	*eat(t_philosopher *philosopher, unsigned int time)
 {
-	pthread_mutex_lock(philosopher->left);
-	printf("Here");
-	pthread_mutex_lock(philosopher->right);
-	printf("Philosopher #%i is now eating\n", philosopher->id);
-	usleep(time);
-	pthread_mutex_unlock(philosopher->left);
-	pthread_mutex_unlock(philosopher->right);
-	printf("Philosopher #%i ate\n", philosopher->id);
+	struct timeval	tv;
+	pthread_mutex_lock(philosopher->left->mutex);
+	gettimeofday(&tv, NULL);
+	ft_print("has taken a fork", tv, philosopher->id, philosopher->table->tv);
+	gettimeofday(&tv, NULL);
+	pthread_mutex_lock(philosopher->right->mutex);
+	ft_print("has taken a fork", tv, philosopher->id, philosopher->table->tv);
+	gettimeofday(&tv, NULL);
+	ft_print("is eating", tv, philosopher->id, philosopher->table->tv);
+	usleep(100);
+	(void)time;
+	pthread_mutex_unlock(philosopher->left->mutex);
+	pthread_mutex_unlock(philosopher->right->mutex);
 	return (NULL);
 }

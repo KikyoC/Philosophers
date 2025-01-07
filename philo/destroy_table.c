@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:39:04 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/06 16:17:12 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:16:56 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ void	*destroy(t_table *table)
 	current = table->first;
 	while (current)
 	{
-		pthread_mutex_destroy(current->left);
+		pthread_mutex_destroy(current->left->mutex);
+		free(current->left);
 		next = current->next;
 		free(current);
 		current = next;
 		i++;
 	}
+	free(table->forks);
 	return (NULL);
 }

@@ -1,42 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 09:30:43 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/07 14:23:32 by togauthi         ###   ########.fr       */
+/*   Created: 2025/01/07 16:22:39 by togauthi          #+#    #+#             */
+/*   Updated: 2025/01/07 17:57:22 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_print(char *str, struct timeval tv, int id, struct timeval sim_start)
 {
-	size_t		i;
-	char		*var;
-
-	i = 0;
-	var = (char *)s;
-	while (i < n)
-	{
-		var[i] = 0;
-		i++;
-	}
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)		
-{
-	void	*alloc;
-
-	if (nmemb == 0 || size == 0)
-		return (malloc(0));
-	if (nmemb > (size_t) - 1 / size)
-		return (NULL);
-	alloc = malloc(nmemb * size);
-	if (!alloc)
-		return (NULL);
-	ft_bzero(alloc, nmemb * size);
-	return (alloc);
+	printf("%ld %i %s\n", (tv.tv_sec * 1000000 + tv.tv_usec / 1000) - (sim_start.tv_sec * 1000000 + sim_start.tv_usec / 1000) , id, str);
 }

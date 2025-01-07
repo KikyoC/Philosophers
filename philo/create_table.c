@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:35:05 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/06 18:00:20 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:51:21 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	add_back(t_table *table, t_philosopher *philosopher)
 	{
 		table->first = philosopher;
 		philosopher->previous = NULL;
-		philosopher->right = philosopher->left;
+		philosopher->right = NULL;
 		return ;
 	}
 	while (current->next)
@@ -34,8 +34,18 @@ void	add_back(t_table *table, t_philosopher *philosopher)
 
 t_philosopher	*assign_philosopher(t_philosopher *philosopher, t_table *table)
 {
-	philosopher->left = &table->forks[philosopher->id - 3];
-	philosopher->right = &table->forks[philosopher->id - 2];
+	t_fork	*fork;
+
+	fork = ft_calloc(1, sizeof(t_fork));
+	fork->mutex = &table->forks[philosopher->id - 1];
+	fork->id = philosopher->id;
+	philosopher->table = table;
+	if (pthread_create(&philosopher->thread, NULL, &thread_routine, philosopher) != 0)
+	{
+		free(fork);
+		return (NULL);
+	}
+	philosopher->left = fork;
 	philosopher->previous = NULL;
 	philosopher->next = NULL;
 	return (philosopher);
@@ -69,15 +79,16 @@ t_table	*create_table(t_table *table, int count)
 	table->forks = get_forks(count);
 	if (!table->forks)
 		return (NULL);
+	gettimeofday(&table->tv, NULL);
 	while (i < count)
 	{
 		philosopher = ft_calloc(1, sizeof(t_philosopher));
 		if (!philosopher)
 			return (destroy(table));
+		philosopher->id = i + 1;
 		philosopher = assign_philosopher(philosopher, table);
 		if (!philosopher)
 			return (destroy(table));
-		philosopher->id = i + 1;
 		add_back(table, philosopher);
 		i++;
 	}
