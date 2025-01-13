@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:35:05 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 11:09:40 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/13 11:30:37 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	add_back(t_table *table, t_philosopher *philosopher)
 {
 	t_philosopher	*current;
-	
+
 	current = table->first;
 	if (!current)
 	{

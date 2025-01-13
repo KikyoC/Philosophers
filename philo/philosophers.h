@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:07:16 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 10:25:19 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/13 11:24:06 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_philosopher
 	int						id;
 	struct s_table			*table;
 	pthread_t				thread;
-	
 }	t_philosopher;
 
 typedef struct s_table
@@ -55,5 +54,5 @@ void	*free_forks(pthread_mutex_t *forks, int count);
 void	*eat(t_philosopher *philosopher, unsigned int time);
 void	*routine(t_table *table, int b);
 void	*thread_routine(void *vd);
-void	ft_print(char *str, struct timeval tv, int id, struct timeval sim_start);
+void	ft_print(char *str, struct timeval tv, int id, struct timeval start);
 #endif

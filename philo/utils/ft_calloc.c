@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 09:30:43 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/07 14:23:32 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/13 11:28:21 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)		
+void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*alloc;
 

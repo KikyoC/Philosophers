@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:31:18 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 10:33:48 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/13 11:22:51 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	*routine(t_table *table, int b)
 	count = 0;
 	while (current)
 	{
-		if (count % 2 == b && pthread_create(&current->thread, NULL, &thread_routine, current) != 0)
+		if (count % 2 == b && pthread_create(
+				&current->thread, NULL, &thread_routine, current) != 0)
 			return (destroy(table));
 		pthread_join(current->thread, NULL);
 		current = current->next;

@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:39:04 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/07 13:16:56 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/13 11:24:50 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ void	*free_forks(pthread_mutex_t *forks, int count)
 	return (NULL);
 }
 
-
 void	*destroy(t_table *table)
 {
 	t_philosopher	*current;
 	t_philosopher	*next;
-	int	i;
+	int				i;
 
 	i = 0;
 	current = table->first;
