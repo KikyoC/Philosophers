@@ -6,11 +6,12 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:35:05 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 11:30:37 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/13 14:32:13 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include <pthread.h>
 
 void	add_back(t_table *table, t_philosopher *philosopher)
 {
@@ -72,6 +73,7 @@ t_table	*create_table(t_table *table, int count)
 	i = 0;
 	table->first = NULL;
 	table->forks = get_forks(count);
+	table->rounds = 10;
 	if (!table->forks)
 		return (NULL);
 	gettimeofday(&table->tv, NULL);
@@ -87,5 +89,7 @@ t_table	*create_table(t_table *table, int count)
 		add_back(table, philosopher);
 		i++;
 	}
+	if (pthread_mutex_init(&table->write, NULL) != 0)
+		return (destroy(table));
 	return (table);
 }

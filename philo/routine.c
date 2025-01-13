@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:31:18 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 11:22:51 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/13 13:32:10 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ void	*routine(t_table *table, int b)
 		if (count % 2 == b && pthread_create(
 				&current->thread, NULL, &thread_routine, current) != 0)
 			return (destroy(table));
-		pthread_join(current->thread, NULL);
 		current = current->next;
 		count ++;
 	}
 	if (b == 0)
+	{
+		usleep(1000);
 		routine(table, 1);
+	}
 	return (NULL);
 }

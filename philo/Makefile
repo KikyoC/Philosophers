@@ -6,7 +6,7 @@
 #    By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 13:14:36 by togauthi          #+#    #+#              #
-#    Updated: 2025/01/13 11:29:53 by tom              ###   ########.fr        #
+#    Updated: 2025/01/13 13:04:10 by tom              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS= philosophers.c \
 	utils/actions.c \
 	utils/ft_calloc.c \
 	utils/thread_routine.c \
+	utils/print.c \
 	create_table.c \
 	destroy_table.c \
 	routine.c

@@ -6,17 +6,26 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:27:27 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 11:31:45 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/13 14:31:05 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
+#include <unistd.h>
+
+
+void	start_loop(t_philosopher *philosopher, int round)
+{
+	eat(philosopher, 100);
+	sleep_thread(philosopher, 100);
+	think(philosopher, 100);
+	if (round >= philosopher->table->rounds)
+		return ;
+	start_loop(philosopher, round + 1);
+}
 
 void	*thread_routine(void *vd)
 {
-	t_philosopher	*philosopher;
-
-	philosopher = (t_philosopher *)vd;
-	eat(philosopher, 100);
+	start_loop((t_philosopher *)vd, 0);
 	return (NULL);
 }
