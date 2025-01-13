@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:35:05 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 14:32:13 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/13 16:25:24 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ t_philosopher	*assign_philosopher(t_philosopher *philosopher, t_table *table)
 	philosopher->table = table;
 	philosopher->previous = NULL;
 	philosopher->next = NULL;
+	if (pthread_mutex_init(&philosopher->eat, NULL) != 0)
+	{
+		pthread_mutex_destroy(fork->mutex);
+		free(fork);
+		return (NULL);
+	}
 	return (philosopher);
 }
 

@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   time_math.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 13:00:05 by tom               #+#    #+#             */
-/*   Updated: 2025/01/13 16:09:14 by tom              ###   ########.fr       */
+/*   Created: 2025/01/13 15:00:39 by tom               #+#    #+#             */
+/*   Updated: 2025/01/13 15:08:44 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
-#include <pthread.h>
 
-void	ft_log(t_table *table, char *str, unsigned long ts, int philosopher)
+long	ft_diff(struct timeval t1, struct timeval t2)
 {
-	if (is_die_state(table))
-		return ;
-	pthread_mutex_lock(&table->write);
-	printf("%lu %i %s\n", ts, philosopher, str);
-	pthread_mutex_unlock(&table->write);
+	return ((t1.tv_sec * 1000 + t1.tv_usec / 1000)
+		- (t2.tv_sec * 1000 + t2.tv_usec / 1000));
 }
+
