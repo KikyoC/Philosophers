@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:07:16 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/07 17:43:13 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/13 10:25:19 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_table	*create_table(t_table *table, int count);
 void	*destroy(t_table *table);
 void	*free_forks(pthread_mutex_t *forks, int count);
 void	*eat(t_philosopher *philosopher, unsigned int time);
-void	routine(t_table *table);
+void	*routine(t_table *table, int b);
 void	*thread_routine(void *vd);
 void	ft_print(char *str, struct timeval tv, int id, struct timeval sim_start);
 #endif

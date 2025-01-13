@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_table.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:35:05 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/07 17:51:21 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/13 11:09:40 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,8 @@ t_philosopher	*assign_philosopher(t_philosopher *philosopher, t_table *table)
 	fork = ft_calloc(1, sizeof(t_fork));
 	fork->mutex = &table->forks[philosopher->id - 1];
 	fork->id = philosopher->id;
-	philosopher->table = table;
-	if (pthread_create(&philosopher->thread, NULL, &thread_routine, philosopher) != 0)
-	{
-		free(fork);
-		return (NULL);
-	}
 	philosopher->left = fork;
+	philosopher->table = table;
 	philosopher->previous = NULL;
 	philosopher->next = NULL;
 	return (philosopher);

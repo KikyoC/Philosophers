@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:06:30 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/07 15:30:11 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/13 10:34:52 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 	(void) argc;
 	(void) argv;
 	create_table(&table, 14);
-	routine(&table);
+	routine(&table, 0);
 	destroy(&table);
 	return (1);
 }
