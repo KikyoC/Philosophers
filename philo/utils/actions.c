@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:49:48 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 14:21:46 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/13 14:56:51 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,15 @@ void	*eat(t_philosopher *philosopher, unsigned int time)
 
 	pthread_mutex_lock(philosopher->left->mutex);
 	gettimeofday(&tv, NULL);
-	ft_log(philosopher->table, "has taken a fork", get_time(tv, philosopher->table->tv), philosopher->id);
+	ft_log(philosopher->table, "has taken a fork",
+		get_time(tv, philosopher->table->tv), philosopher->id);
 	gettimeofday(&tv, NULL);
 	pthread_mutex_lock(philosopher->right->mutex);
-	ft_log(philosopher->table, "has taken a fork", get_time(tv, philosopher->table->tv), philosopher->id);
+	ft_log(philosopher->table, "has taken a fork",
+		get_time(tv, philosopher->table->tv), philosopher->id);
 	gettimeofday(&tv, NULL);
-	ft_log(philosopher->table, "is eating", get_time(tv, philosopher->table->tv), philosopher->id);
+	ft_log(philosopher->table, "is eating",
+		get_time(tv, philosopher->table->tv), philosopher->id);
 	usleep(time * 1000);
 	pthread_mutex_unlock(philosopher->left->mutex);
 	pthread_mutex_unlock(philosopher->right->mutex);
@@ -45,7 +48,8 @@ void	*sleep_thread(t_philosopher *philosopher, unsigned int time)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	ft_log(philosopher->table, "is sleeping", get_time(tv, philosopher->table->tv), philosopher->id);
+	ft_log(philosopher->table, "is sleeping",
+		get_time(tv, philosopher->table->tv), philosopher->id);
 	usleep(time * 1000);
 	return (NULL);
 }
@@ -53,9 +57,10 @@ void	*sleep_thread(t_philosopher *philosopher, unsigned int time)
 void	*think(t_philosopher *philosopher, unsigned int time)
 {
 	struct timeval	tv;
-	
+
 	gettimeofday(&tv, NULL);
-	ft_log(philosopher->table, "is thinking", get_time(tv, philosopher->table->tv), philosopher->id);
+	ft_log(philosopher->table, "is thinking",
+		get_time(tv, philosopher->table->tv), philosopher->id);
 	usleep(time * 1000);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:07:16 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 14:27:50 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/13 14:55:26 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*eat(t_philosopher *philosopher, unsigned int time);
 void	*routine(t_table *table, int b);
 void	*thread_routine(void *vd);
 void	ft_print(char *str, struct timeval tv, int id, struct timeval start);
-void	ft_log(t_table *table, char *str, unsigned long timestamp, int philosopher);
+void	ft_log(t_table *table, char *str, unsigned long ts, int philosopher);
 void	*think(t_philosopher *philosopher, unsigned int time);
 void	*sleep_thread(t_philosopher *philosopher, unsigned int time);
 #endif

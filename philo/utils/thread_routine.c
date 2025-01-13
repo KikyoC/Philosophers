@@ -6,13 +6,12 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:27:27 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 14:31:05 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/13 14:57:13 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 #include <unistd.h>
-
 
 void	start_loop(t_philosopher *philosopher, int round)
 {
