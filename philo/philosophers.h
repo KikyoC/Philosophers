@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:07:16 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 16:12:09 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/14 13:41:11 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
-#include <bits/types/struct_timeval.h>
 # include <pthread.h>
 # include <limits.h>
 # include <stdio.h>
@@ -46,6 +45,7 @@ typedef struct s_table
 	int						eat_time;
 	int						sleep_time;
 	int						die_time;
+	int						count;
 	int						rounds;
 	pthread_mutex_t			die;
 	int						is_dead;
@@ -62,8 +62,7 @@ void			*free_forks(pthread_mutex_t *forks, int count);
 void			*eat(t_philosopher *philosopher, unsigned int time);
 void			*routine(t_table *table, int b);
 void			*thread_routine(void *vd);
-void			ft_print(char *str, struct timeval tv, int id, struct timeval start);
-void			ft_log(t_table *table, char *str, unsigned long ts, int philosopher);
+void			ft_log(t_table *table, char *str, unsigned long ts, int id);
 void			*think(t_philosopher *philosopher, unsigned int time);
 void			*sleep_thread(t_philosopher *philosopher, unsigned int time);
 long			ft_diff(struct timeval t1, struct timeval t2);
@@ -72,5 +71,10 @@ void			set_last_eat_now(t_philosopher *philosopher);
 void			set_die_state(t_table *table);
 int				is_die_state(t_table *table);
 void			*dead_routine(void *vd);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+int				ft_atoi(const char *nptr);
+char			*ft_itoa(int n);
+int				parse(int argc, char **argv, t_table *table);
+int				ft_lock(pthread_mutex_t mutex, t_table *table);
 
 #endif

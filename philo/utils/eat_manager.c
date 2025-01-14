@@ -6,13 +6,11 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 15:38:40 by tom               #+#    #+#             */
-/*   Updated: 2025/01/13 15:55:10 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/14 13:37:02 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
-#include <pthread.h>
-#include <sys/time.h>
 
 void	set_last_eat_now(t_philosopher *philosopher)
 {
@@ -33,4 +31,3 @@ struct timeval	get_last_eat(t_philosopher *philosopher)
 	pthread_mutex_unlock(&philosopher->eat);
 	return (res);
 }
-

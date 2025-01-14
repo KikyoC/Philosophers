@@ -6,12 +6,11 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 15:59:01 by tom               #+#    #+#             */
-/*   Updated: 2025/01/13 16:07:01 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/14 13:37:00 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
-#include <pthread.h>
 
 void	set_die_state(t_table *table)
 {
@@ -29,4 +28,3 @@ int	is_die_state(t_table *table)
 	pthread_mutex_unlock(&table->die);
 	return (res);
 }
-

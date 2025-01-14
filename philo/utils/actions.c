@@ -6,26 +6,27 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:49:48 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 15:50:20 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/14 13:38:45 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
-#include <bits/types/struct_timeval.h>
-#include <pthread.h>
-#include <sys/time.h>
-#include <unistd.h>
 
 void	*eat(t_philosopher *philosopher, unsigned int time)
 {
 	struct timeval	tv;
 
-	pthread_mutex_lock(philosopher->left->mutex);
+	if (ft_lock(*philosopher->left->mutex, philosopher->table))
+		return (NULL);
 	gettimeofday(&tv, NULL);
 	ft_log(philosopher->table, "has taken a fork",
 		ft_diff(tv, philosopher->table->tv), philosopher->id);
 	gettimeofday(&tv, NULL);
-	pthread_mutex_lock(philosopher->right->mutex);
+	if (ft_lock(*philosopher->right->mutex, philosopher->table))
+	{
+		pthread_mutex_unlock(philosopher->left->mutex);
+		return (NULL);
+	}
 	ft_log(philosopher->table, "has taken a fork",
 		ft_diff(tv, philosopher->table->tv), philosopher->id);
 	gettimeofday(&tv, NULL);
@@ -42,6 +43,8 @@ void	*sleep_thread(t_philosopher *philosopher, unsigned int time)
 {
 	struct timeval	tv;
 
+	if (is_die_state(philosopher->table))
+		return (NULL);
 	gettimeofday(&tv, NULL);
 	ft_log(philosopher->table, "is sleeping",
 		ft_diff(tv, philosopher->table->tv), philosopher->id);
@@ -53,6 +56,8 @@ void	*think(t_philosopher *philosopher, unsigned int time)
 {
 	struct timeval	tv;
 
+	if (is_die_state(philosopher->table))
+		return (NULL);
 	gettimeofday(&tv, NULL);
 	ft_log(philosopher->table, "is thinking",
 		ft_diff(tv, philosopher->table->tv), philosopher->id);

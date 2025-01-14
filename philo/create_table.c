@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:35:05 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 16:25:24 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/13 16:59:13 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ t_table	*create_table(t_table *table, int count)
 	if (!table->forks)
 		return (NULL);
 	gettimeofday(&table->tv, NULL);
+	if (pthread_mutex_init(&table->write, NULL) != 0)
+		return (destroy(table));
 	while (i < count)
 	{
 		philosopher = ft_calloc(1, sizeof(t_philosopher));
@@ -95,7 +97,5 @@ t_table	*create_table(t_table *table, int count)
 		add_back(table, philosopher);
 		i++;
 	}
-	if (pthread_mutex_init(&table->write, NULL) != 0)
-		return (destroy(table));
 	return (table);
 }

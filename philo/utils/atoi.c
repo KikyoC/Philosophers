@@ -6,13 +6,13 @@
 /*   By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 13:07:51 by togauthi          #+#    #+#             */
-/*   Updated: 2024/12/19 14:30:47 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:55:13 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-int	ft_atoi(const char *nptr)
+int	ft_atoii(const char *nptr)
 {
 	int		p;
 	int		i;

@@ -6,7 +6,7 @@
 #    By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 13:14:36 by togauthi          #+#    #+#              #
-#    Updated: 2025/01/13 16:17:52 by tom              ###   ########.fr        #
+#    Updated: 2025/01/14 13:25:02 by tom              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,12 @@ SRCS= philosophers.c \
 	utils/time_math.c \
 	utils/eat_manager.c \
 	utils/die_manager.c \
+	utils/lib.c \
+	utils/mutex_lock.c \
 	create_table.c \
 	destroy_table.c \
-	routine.c
+	routine.c \
+	parsing.c
 
 OBJS = $(addprefix objs/, $(SRCS:.c=.o));
 

@@ -6,23 +6,26 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:31:18 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 16:11:49 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/14 14:05:12 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <sys/time.h>
 #include <unistd.h>
 
 void	*routine(t_table *table, int b)
 {
 	t_philosopher	*current;
+	struct timeval	tv;
 	int				count;
 
 	current = table->first;
 	count = 0;
+	gettimeofday(&tv, NULL);
 	while (current)
 	{
+		if (count % 2 == b)
+			current->last_eat = tv;
 		if (count % 2 == b && pthread_create(
 				&current->thread, NULL, &thread_routine, current) != 0)
 			return (destroy(table));
@@ -42,20 +45,26 @@ void	*dead_routine(void *vd)
 	t_table			*table;
 	t_philosopher	*current;
 	struct timeval	tv;
+	int				end;
 
 	table = (t_table *)vd;
-	usleep(5000);
+	end = 0;
 	current = table->first;
 	gettimeofday(&tv, NULL);
 	while (current)
 	{
-		if (ft_diff(tv, get_last_eat(current)) > 10)
+		// printf("Diff is %li\n", ft_diff(tv, get_last_eat(current)));
+		if (ft_diff(tv, get_last_eat(current)) > table->die_time)
 		{
+			ft_log(table, "died", ft_diff(tv, current->table->tv), current->id);
 			set_die_state(table);
-			break ;
+			end = 1;
+			break;
 		}
 		current = current->next;
-		usleep(5000);
+		usleep(10);
 	}
+	if (!end)
+		return (dead_routine(vd));
 	return (NULL);
 }

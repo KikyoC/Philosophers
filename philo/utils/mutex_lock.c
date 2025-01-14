@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_math.c                                        :+:      :+:    :+:   */
+/*   mutex_lock.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 15:00:39 by tom               #+#    #+#             */
-/*   Updated: 2025/01/14 13:37:19 by tom              ###   ########.fr       */
+/*   Created: 2025/01/14 12:43:50 by tom               #+#    #+#             */
+/*   Updated: 2025/01/14 12:47:27 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-long	ft_diff(struct timeval t1, struct timeval t2)
+int	ft_lock(pthread_mutex_t mutex, t_table *table)
 {
-	return ((t1.tv_sec * 1000 + t1.tv_usec / 1000)
-		- (t2.tv_sec * 1000 + t2.tv_usec / 1000));
+	if (is_die_state(table))
+		return (1);
+	pthread_mutex_lock(&mutex);
+	return (0);
 }
