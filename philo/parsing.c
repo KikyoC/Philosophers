@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 10:03:30 by tom               #+#    #+#             */
-/*   Updated: 2025/01/14 17:21:20 by tom              ###   ########.fr       */
+/*   Created: 2025/01/15 11:46:33 by tom               #+#    #+#             */
+/*   Updated: 2025/01/15 13:18:37 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	parse(int argc, char **argv, t_table *table)
 	if (argc < 5)
 	{
 		write(2, "Not enough arguments\n", 21);
-		return (1);
+		return (0);
 	}
 	table->count = to_int(argv[1]);
 	table->die_time = to_int(argv[2]);
@@ -52,7 +52,6 @@ int	parse(int argc, char **argv, t_table *table)
 		table->rounds = to_int(argv[5]);
 	else
 		table->rounds = -1;
-	printf("Rounds: %i\n", table->rounds);
 	return (table->die_time
 		&& table->rounds
 		&& table->sleep_time

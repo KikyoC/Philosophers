@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib.c                                              :+:      :+:    :+:   */
+/*   libc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 10:18:18 by tom               #+#    #+#             */
-/*   Updated: 2025/01/14 10:51:46 by tom              ###   ########.fr       */
+/*   Created: 2025/01/15 11:51:09 by tom               #+#    #+#             */
+/*   Updated: 2025/01/15 13:17:23 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "philosophers.h"
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*alloc;
+
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	if (nmemb > (size_t) - 1 / size)
+		return (NULL);
+	alloc = malloc(nmemb * size);
+	if (!alloc)
+		return (NULL);
+	memset(alloc, 0, nmemb * size);
+	return (alloc);
+}
 
 static int	alloc_size(int n)
 {

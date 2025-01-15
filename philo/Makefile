@@ -3,69 +3,46 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+         #
+#    By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/12/19 13:14:36 by togauthi          #+#    #+#              #
-#    Updated: 2025/01/14 16:14:00 by tom              ###   ########.fr        #
+#    Created: 2025/01/15 11:38:09 by tom               #+#    #+#              #
+#    Updated: 2025/01/15 12:36:58 by tom              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME= philo
-
-SRCS= philosophers.c \
-	utils/atoi.c \
-	utils/actions.c \
-	utils/ft_calloc.c \
-	utils/thread_routine.c \
-	utils/print.c \
-	utils/time_math.c \
-	utils/eat_manager.c \
-	utils/die_manager.c \
-	utils/lib.c \
-	utils/mutex_lock.c \
-	utils/philosopher_manager.c \
-	create_table.c \
-	destroy_table.c \
-	routine.c \
-	parsing.c
-
-OBJS = $(addprefix objs/, $(SRCS:.c=.o));
-
 CFLAGS = -Wall -Werror -Wextra -g
 
-OBJS_DIR= objs/ \
-	objs/utils
+SRCS= philosophers.c \
+	parsing.c \
+	libc.c \
+	init.c \
+	routine.c \
+	destroy.c
 
-GREEN = \e[0;32m
-WHITE = \e[0;37m
-AQUA = \e[0;36m
-YELLOW = \e[0;33m
+OBJS_DIR= objs/
+
+OBJS= $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
+
 
 all: $(NAME)
 
-$(OBJS_DIR):
-	@mkdir -p $(OBJS_DIR)
-	@echo "$(GREEN)Destination built"
+$(NAME): $(OBJS_DIR) $(OBJS)
+	cc $(CFLAGS) $(OBJS) -o $@
 
 objs/%.o: %.c
-	@echo "$(AQUA)Compiling $<..."
-	@cc $(CFLAGS) -c $< -o $@
-	@echo "$(AQUA)$< compiled$(WHITE)"
+	cc $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS_DIR) $(OBJS)
-	@echo "$(YELLOW)Compiling objs... $(WHITE)"
-	@cc $(CFLAGS) -o $(NAME) $(OBJS)
-	@echo "$(GREEN)Objs compiled.$(AQUA)"
-	@figlet -t philosophers
+$(OBJS_DIR):
+	mkdir -p objs
 
 clean:
-	@echo "$(YELLOW)Cleaning objs..."
-	@rm -rf objs/
-	@echo "$(GREEN)Objs cleaned$(WHITE)"
+	rm -rf $(OBJS_DIR)
 
-fclean: clean
-	@echo "$(YELLOW)Removing executable"
-	@rm -f $(NAME)
-	@echo "$(GREEN)Executable removed"
+fclean:
+	rm -rf $(OBJS_DIR)
 
 re: fclean all
+
+
+.PHONY: all

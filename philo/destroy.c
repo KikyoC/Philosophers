@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   die_manager.c                                      :+:      :+:    :+:   */
+/*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 15:59:01 by tom               #+#    #+#             */
-/*   Updated: 2025/01/15 09:33:59 by tom              ###   ########.fr       */
+/*   Created: 2025/01/15 12:34:30 by tom               #+#    #+#             */
+/*   Updated: 2025/01/15 13:17:10 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "philosophers.h"
 
-void	set_die_state(t_table *table)
+void	destroy_table(t_table *table)
 {
-	pthread_mutex_lock(&table->die);
-	table->is_dead = 1;
-	pthread_mutex_unlock(&table->die);
-}
+	t_philsopher	*current;
+	t_philsopher	*next;
 
-int	is_die_state(t_table *table)
-{
-	int	res;
-
-	pthread_mutex_lock(&table->die);
-	res = table->is_dead;
-	pthread_mutex_unlock(&table->die);
-	return (res);
+	current = table->first;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
 }
