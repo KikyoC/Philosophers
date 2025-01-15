@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:07:16 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/14 13:41:11 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/15 09:33:07 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 typedef struct s_fork
 {
-	int						id;
-	pthread_mutex_t			*mutex;
+	int				id;
+	pthread_mutex_t	*mutex;
 }	t_fork;
 
 typedef struct s_philosopher
@@ -34,6 +34,8 @@ typedef struct s_philosopher
 	struct timeval			last_eat;
 	pthread_mutex_t			eat;
 	int						id;
+	pthread_mutex_t			end_m;
+	int						end;
 	struct s_table			*table;
 	pthread_t				thread;
 }	t_philosopher;
@@ -75,6 +77,9 @@ int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_atoi(const char *nptr);
 char			*ft_itoa(int n);
 int				parse(int argc, char **argv, t_table *table);
-int				ft_lock(pthread_mutex_t mutex, t_table *table);
+int				ft_lock(pthread_mutex_t *mutex, t_table *table);
+void			set_philosoph_end(t_philosopher *philosopher);
+int				is_philosopher_end(t_philosopher *philosopher);
+int				ft_usleep(useconds_t time);
 
 #endif

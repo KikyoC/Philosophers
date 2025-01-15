@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:31:18 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/14 14:05:12 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/15 10:18:17 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,28 @@ void	*routine(t_table *table, int b)
 	}
 	if (b == 0)
 	{
-		usleep(1000);
+		ft_usleep(table->eat_time);
 		routine(table, 1);
 	}
 	return (NULL);
+}
+
+void	all_ended(t_table *table, int *stock)
+{
+    t_philosopher	*current;
+
+    current = table->first;
+    while (current)
+    {
+        printf("Checking philosopher %d\n", current->id);
+        if(!is_philosopher_end(current))
+        {
+            *stock = 0;
+            return ;
+        }
+        current = current->next;
+    }
+    *stock = 1;
 }
 
 void	*dead_routine(void *vd)
@@ -51,15 +69,15 @@ void	*dead_routine(void *vd)
 	end = 0;
 	current = table->first;
 	gettimeofday(&tv, NULL);
+	all_ended(table, &end);
 	while (current)
 	{
-		// printf("Diff is %li\n", ft_diff(tv, get_last_eat(current)));
-		if (ft_diff(tv, get_last_eat(current)) > table->die_time)
+		if (ft_diff(tv, get_last_eat(current)) > table->die_time && !is_philosopher_end(current))
 		{
 			ft_log(table, "died", ft_diff(tv, current->table->tv), current->id);
 			set_die_state(table);
 			end = 1;
-			break;
+			break ;
 		}
 		current = current->next;
 		usleep(10);

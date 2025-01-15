@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:03:30 by tom               #+#    #+#             */
-/*   Updated: 2025/01/14 13:40:41 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/14 17:21:20 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	parse(int argc, char **argv, t_table *table)
 		table->rounds = to_int(argv[5]);
 	else
 		table->rounds = -1;
+	printf("Rounds: %i\n", table->rounds);
 	return (table->die_time
 		&& table->rounds
 		&& table->sleep_time

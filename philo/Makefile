@@ -6,7 +6,7 @@
 #    By: togauthi <togauthi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 13:14:36 by togauthi          #+#    #+#              #
-#    Updated: 2025/01/14 13:25:02 by tom              ###   ########.fr        #
+#    Updated: 2025/01/14 16:14:00 by tom              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS= philosophers.c \
 	utils/die_manager.c \
 	utils/lib.c \
 	utils/mutex_lock.c \
+	utils/philosopher_manager.c \
 	create_table.c \
 	destroy_table.c \
 	routine.c \

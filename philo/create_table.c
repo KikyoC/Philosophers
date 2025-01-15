@@ -6,12 +6,13 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:35:05 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/13 16:59:13 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/15 09:34:11 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <pthread.h>
+#include <unistd.h>
 
 void	add_back(t_table *table, t_philosopher *philosopher)
 {
@@ -40,6 +41,7 @@ t_philosopher	*assign_philosopher(t_philosopher *philosopher, t_table *table)
 	fork = ft_calloc(1, sizeof(t_fork));
 	fork->mutex = &table->forks[philosopher->id - 1];
 	fork->id = philosopher->id;
+	philosopher->end = 0;
 	philosopher->left = fork;
 	philosopher->table = table;
 	philosopher->previous = NULL;
@@ -47,6 +49,13 @@ t_philosopher	*assign_philosopher(t_philosopher *philosopher, t_table *table)
 	if (pthread_mutex_init(&philosopher->eat, NULL) != 0)
 	{
 		pthread_mutex_destroy(fork->mutex);
+		free(fork);
+		return (NULL);
+	}
+	if (pthread_mutex_init(&philosopher->end_m, NULL) != 0)
+	{
+		pthread_mutex_destroy(fork->mutex);
+		pthread_mutex_destroy(&philosopher->eat);
 		free(fork);
 		return (NULL);
 	}
@@ -79,7 +88,6 @@ t_table	*create_table(t_table *table, int count)
 	i = 0;
 	table->first = NULL;
 	table->forks = get_forks(count);
-	table->rounds = 10;
 	if (!table->forks)
 		return (NULL);
 	gettimeofday(&table->tv, NULL);

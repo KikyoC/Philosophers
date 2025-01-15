@@ -6,11 +6,12 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:06:30 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/14 13:38:29 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/15 09:37:32 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include <bits/pthreadtypes.h>
 #include <pthread.h>
 
 void	join_threads(t_table *table)
@@ -36,6 +37,7 @@ int	main(int argc, char **argv)
 	if (pthread_mutex_init(&table.die, NULL) != 0)
 		return (1);
 	create_table(&table, table.count);
+	printf("Locks:\n - %p\n", &table.write);
 	routine(&table, 0);
 	pthread_create(&table.dead_checker, NULL, &dead_routine, &table);
 	join_threads(&table);

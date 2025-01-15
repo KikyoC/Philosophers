@@ -6,7 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:27:27 by togauthi          #+#    #+#             */
-/*   Updated: 2025/01/14 13:55:02 by tom              ###   ########.fr       */
+/*   Updated: 2025/01/15 09:09:29 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 void	start_loop(t_philosopher *philosopher, int round)
 {
 	if (round >= philosopher->table->rounds && philosopher->table->rounds > 0)
+	{
+		set_philosoph_end(philosopher);
 		return ;
+	}
+	printf("Philosopher #%i is starting round %i\n", philosopher->id, round);
 	eat(philosopher, philosopher->table->eat_time);
 	sleep_thread(philosopher, philosopher->table->sleep_time);
-	think(philosopher, 100);
 	if (is_die_state(philosopher->table))
 		return ;
 	start_loop(philosopher, round + 1);

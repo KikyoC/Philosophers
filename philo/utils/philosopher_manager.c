@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_math.c                                        :+:      :+:    :+:   */
+/*   philosopher_manager.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 15:00:39 by tom               #+#    #+#             */
-/*   Updated: 2025/01/14 17:42:37 by tom              ###   ########.fr       */
+/*   Created: 2025/01/14 16:03:54 by tom               #+#    #+#             */
+/*   Updated: 2025/01/15 10:12:52 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-long	ft_diff(struct timeval t1, struct timeval t2)
+void	set_philosoph_end(t_philosopher *philosopher)
 {
-	return ((t1.tv_sec * 1000 + t1.tv_usec / 1000)
-		- (t2.tv_sec * 1000 + t2.tv_usec / 1000));
+	pthread_mutex_lock(&philosopher->end_m);
+	philosopher->end = 1;
+	pthread_mutex_unlock(&philosopher->end_m);
 }
 
-u_int64_t	get_time(void)
+int	is_philosopher_end(t_philosopher *philosopher)
 {
-	struct timeval	tv;
+    int	res;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
-}
-
-int	ft_usleep(useconds_t time)
-{
-	u_int64_t	start;
-
-	start = get_time();
-	while ((get_time() - start) < time)
-		usleep(time / 10);
-	return (0);
+    pthread_mutex_lock(&philosopher->end_m);
+    res = philosopher->end;
+    printf("Philosopher %d end state: %d\n", philosopher->id, res);
+    pthread_mutex_unlock(&philosopher->end_m);
+    return (res);
 }
