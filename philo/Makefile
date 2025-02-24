@@ -6,7 +6,7 @@
 #    By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 11:38:09 by tom               #+#    #+#              #
-#    Updated: 2025/01/15 12:36:58 by tom              ###   ########.fr        #
+#    Updated: 2025/02/24 16:20:14 by togauthi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,11 @@ SRCS= philosophers.c \
 	libc.c \
 	init.c \
 	routine.c \
-	destroy.c
+	destroy.c \
+	print.c \
+	die.c \
+	die_routine.c \
+	last_eat.c
 
 OBJS_DIR= objs/
 
