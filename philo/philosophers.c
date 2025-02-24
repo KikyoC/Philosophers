@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:33:46 by tom               #+#    #+#             */
-/*   Updated: 2025/01/15 13:18:27 by tom              ###   ########.fr       */
+/*   Updated: 2025/02/24 15:43:46 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	join_threads(t_table *table)
 	}
 }
 
-void	printf_table(t_table *table)
+void	print_table(t_table *table)
 {
 	t_philsopher	*current;
 
@@ -39,11 +39,13 @@ void	printf_table(t_table *table)
 
 int	main(int argc, char **argv)
 {
-	t_table	table;
+	t_table		table;
+	pthread_t	die_checker;
 
 	if (!parse(argc, argv, &table))
 		return (1);
 	create_table(&table);
+	pthread_create(&die_checker, NULL, die_routine, &table);
 	join_threads(&table);
 	destroy_table(&table);
 }
