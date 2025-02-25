@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:26:30 by tom               #+#    #+#             */
-/*   Updated: 2025/02/25 16:00:05 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:14:06 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	philo_eat(t_philosopher *philo)
 		return ;
 	}
 	print_message(philo, "has taken a fork");
-	set_last_eat(philo);
+	// set_last_eat(philo);
 	print_message(philo, "is eating");
 	wait_philo(philo->table->eat_time, philo->table);
 	set_last_eat(philo);
