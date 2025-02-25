@@ -6,14 +6,11 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:05:49 by tom               #+#    #+#             */
-/*   Updated: 2025/02/24 16:11:41 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:10:55 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <bits/pthreadtypes.h>
-#include <pthread.h>
-#include <sys/time.h>
 
 void	add_back(t_table *table, t_philsopher *to_add)
 {
