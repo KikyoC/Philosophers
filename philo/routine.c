@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:26:30 by tom               #+#    #+#             */
-/*   Updated: 2025/02/25 16:14:06 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:44:45 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,13 @@
 
 void	wait_philo(int time, t_table *table)
 {
-	(void)table;
-	while (time > 20 && !is_died(table))	
+	while (time > 20 && !is_died(table))
 	{
 		usleep(20000);
-		time-=20;
+		time -= 20;
 	}
 	usleep(time * 1000);
 }
-
 
 void	philo_eat(t_philosopher *philo)
 {
@@ -43,7 +41,6 @@ void	philo_eat(t_philosopher *philo)
 		return ;
 	}
 	print_message(philo, "has taken a fork");
-	// set_last_eat(philo);
 	print_message(philo, "is eating");
 	wait_philo(philo->table->eat_time, philo->table);
 	set_last_eat(philo);

@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:05:49 by tom               #+#    #+#             */
-/*   Updated: 2025/02/25 15:37:17 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:43:52 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_philosopher	*create_philosopher(int id, t_table *table)
 	return (res);
 }
 
-int start_threads(t_table *table)
+int	start_threads(t_table *table)
 {
 	t_philosopher	*current;
 	int				i;
