@@ -6,12 +6,11 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:05:49 by tom               #+#    #+#             */
-/*   Updated: 2025/02/25 14:53:09 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:37:17 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <pthread.h>
 
 void	add_back(t_table *table, t_philosopher *to_add)
 {
@@ -21,13 +20,11 @@ void	add_back(t_table *table, t_philosopher *to_add)
 	if (!current)
 	{
 		table->first = to_add;
-		to_add->right_id = 1;
 		return ;
 	}
 	while (current->next)
 		current = current->next;
 	current->next = to_add;
-	current->right_id = to_add->left_id;
 }
 
 pthread_mutex_t	**get_forks(t_table *table)
@@ -70,6 +67,10 @@ t_philosopher	*create_philosopher(int id, t_table *table)
 	pthread_mutex_init(res->last_eat_m, NULL);
 	res->id = id;
 	res->left_id = id - 1;
+	if (table->forks[id] == NULL)
+		res->right_id = 0;
+	else
+		res->right_id = id;
 	res->table = table;
 	add_back(table, res);
 	return (res);
