@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:26:30 by tom               #+#    #+#             */
-/*   Updated: 2025/02/25 15:53:18 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:00:05 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,22 @@ void	philo_sleep(t_philosopher *philo)
 		print_message(philo, "is thinking");
 }
 
+void	start(t_philosopher *philo, int round)
+{
+	if (is_died(philo->table))
+		return ;
+	if (philo->table->rounds > 0 && philo->table->rounds <= round)
+	{
+		set_died(philo->table);
+		return ;
+	}
+	philo_eat(philo);
+	if (is_died(philo->table))
+		return ;
+	philo_sleep(philo);
+	return (start(philo, round + 1));
+}
+
 void	*thread_routine(void *vd)
 {
 	t_philosopher	*philo;
@@ -79,11 +95,6 @@ void	*thread_routine(void *vd)
 		usleep(5000);
 		set_last_eat(philo);
 	}
-	while (!is_died(philo->table))
-	{
-		philo_eat(philo);
-		if (!is_died(philo->table))
-			philo_sleep(philo);
-	}
+	start(philo, 0);
 	return (NULL);
 }
