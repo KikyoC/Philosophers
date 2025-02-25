@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:34:52 by tom               #+#    #+#             */
-/*   Updated: 2025/02/24 16:18:04 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:20:41 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_philosopher
 	int						right_id;
 	long					last_eat;
 	pthread_mutex_t			*last_eat_m;
-}	t_philsopher;
+}	t_philosopher;
 
 typedef struct s_table
 {
@@ -55,11 +55,11 @@ int		parse(int argc, char **argv, t_table *table);
 int		create_table(t_table *table);
 void	*thread_routine(void *vd);
 void	destroy_table(t_table *table);
-void	print_message(t_philsopher *philo, char *str);
+void	print_message(t_philosopher *philo, char *str);
 int		is_died(t_table *table);
 void	set_died(t_table *table);
 void	*die_routine(void *vd);
-void	set_last_eat(t_philsopher *philo);
-long	get_last_eat(t_philsopher *philo);
+void	set_last_eat(t_philosopher *philo);
+long	get_last_eat(t_philosopher *philo);
 
 #endif

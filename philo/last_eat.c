@@ -6,13 +6,13 @@
 /*   By: togauthi <togauthi@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:14:41 by togauthi          #+#    #+#             */
-/*   Updated: 2025/02/24 16:19:46 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:22:18 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	set_last_eat(t_philsopher *philo)
+void	set_last_eat(t_philosopher *philo)
 {
 	struct timeval	tv;
 	gettimeofday(&tv, NULL);
@@ -21,7 +21,7 @@ void	set_last_eat(t_philsopher *philo)
 	pthread_mutex_unlock(philo->last_eat_m);
 }
 
-long	get_last_eat(t_philsopher *philo)
+long	get_last_eat(t_philosopher *philo)
 {
 	long	res;
 	pthread_mutex_lock(philo->last_eat_m);

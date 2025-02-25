@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:34:30 by tom               #+#    #+#             */
-/*   Updated: 2025/02/24 16:23:20 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:22:57 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	destroy_forks(pthread_mutex_t **forks)
 	free(forks);
 }
 
-void	destroy_philosopher(t_philsopher *philo)
+void	destroy_philosopher(t_philosopher *philo)
 {
 	if (philo->last_eat_m)
 	{
@@ -41,8 +41,8 @@ void	destroy_philosopher(t_philsopher *philo)
 
 void	destroy_table(t_table *table)
 {
-	t_philsopher	*current;
-	t_philsopher	*next;
+	t_philosopher	*current;
+	t_philosopher	*next;
 
 	current = table->first;
 	while (current)

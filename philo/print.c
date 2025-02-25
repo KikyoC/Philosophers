@@ -6,13 +6,13 @@
 /*   By: togauthi <togauthi@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:40:12 by togauthi          #+#    #+#             */
-/*   Updated: 2025/02/25 11:32:26 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:21:52 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	print_message(t_philsopher *philo, char *str)
+void	print_message(t_philosopher *philo, char *str)
 {
 	struct timeval	tv;
 	int			time;

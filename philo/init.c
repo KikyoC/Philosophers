@@ -6,15 +6,16 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:05:49 by tom               #+#    #+#             */
-/*   Updated: 2025/02/25 11:10:55 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:53:09 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include <pthread.h>
 
-void	add_back(t_table *table, t_philsopher *to_add)
+void	add_back(t_table *table, t_philosopher *to_add)
 {
-	t_philsopher	*current;
+	t_philosopher	*current;
 
 	current = table->first;
 	if (!current)
@@ -53,11 +54,11 @@ pthread_mutex_t	**get_forks(t_table *table)
 	return (res);
 }
 
-t_philsopher	*create_philosopher(int id, t_table *table)
+t_philosopher	*create_philosopher(int id, t_table *table)
 {
-	t_philsopher	*res;
+	t_philosopher	*res;
 
-	res = ft_calloc(1, sizeof(t_philsopher));
+	res = ft_calloc(1, sizeof(t_philosopher));
 	if (!res)
 		return (NULL);
 	res->last_eat_m = ft_calloc(1, sizeof(pthread_mutex_t));
@@ -74,30 +75,19 @@ t_philsopher	*create_philosopher(int id, t_table *table)
 	return (res);
 }
 
-int start_threads(t_table *table, int pair)
+int start_threads(t_table *table)
 {
-	t_philsopher	*current;
+	t_philosopher	*current;
 	int				i;
-	struct timeval	tv;
 
 	current = table->first;
 	i = 0;
 	while (current)
 	{
-		if ((pair && i % 2 == 0) || (!pair && i % 2 != 0))
-		{
-			if (pthread_create(&current->thread, NULL, thread_routine, current))
-				return (0);
-			gettimeofday(&tv, NULL);
-			current->last_eat = tv.tv_sec * 1000 +  tv.tv_usec / 1000;
-		}
+		if (pthread_create(&current->thread, NULL, thread_routine, current))
+			return (0);
 		i++;
 		current = current->next;
-	}
-	if (!pair)
-	{
-		usleep(10000);
-		return (start_threads(table, 1));
 	}
 	return (1);
 }
@@ -125,6 +115,6 @@ int	create_table(t_table *table)
 			return (0);
 		i++;
 	}
-	start_threads(table, 0);
+	start_threads(table);
 	return (1);
 }
