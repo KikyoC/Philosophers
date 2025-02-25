@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:40:12 by togauthi          #+#    #+#             */
-/*   Updated: 2025/02/25 14:21:52 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:43:06 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_message(t_philosopher *philo, char *str)
 {
 	struct timeval	tv;
-	int			time;
+	int				time;
 
 	gettimeofday(&tv, NULL);
 	time = (tv.tv_sec * 1000 + tv.tv_usec / 1000) - philo->table->start_time;
