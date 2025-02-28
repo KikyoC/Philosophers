@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:46:33 by tom               #+#    #+#             */
-/*   Updated: 2025/02/24 16:32:16 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:02:10 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	to_int(char *c)
 	}
 	if (ft_strncmp(c, str, len) || res <= 0)
 	{
+		free(str);
 		write(2, "Parameter not good\n", 19);
 		return (0);
 	}

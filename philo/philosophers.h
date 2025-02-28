@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:34:52 by tom               #+#    #+#             */
-/*   Updated: 2025/02/25 14:20:41 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:11:46 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_table
 	pthread_mutex_t			**forks;
 	pthread_mutex_t			*print;
 	pthread_mutex_t			*die;
+	pthread_t				die_manager;
 }	t_table;
 
 char	*ft_itoa(int n);

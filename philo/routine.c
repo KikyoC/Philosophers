@@ -6,22 +6,24 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:26:30 by tom               #+#    #+#             */
-/*   Updated: 2025/02/25 16:44:45 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:04:02 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <pthread.h>
-#include <unistd.h>
 
-void	wait_philo(int time, t_table *table)
+void    wait_philo(int t, t_table *table)
 {
-	while (time > 20 && !is_died(table))
+	long			end_time;
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	end_time = (tv.tv_sec * 1000 + tv.tv_usec / 1000) + t;
+	while (tv.tv_sec * 1000 + tv.tv_usec / 1000 < end_time && !is_died(table))
 	{
-		usleep(20000);
-		time -= 20;
+		usleep(100);
+		gettimeofday(&tv, NULL);
 	}
-	usleep(time * 1000);
 }
 
 void	philo_eat(t_philosopher *philo)
@@ -77,7 +79,6 @@ void	*thread_routine(void *vd)
 	t_philosopher	*philo;
 
 	philo = (t_philosopher *)vd;
-	set_last_eat(philo);
 	if (philo->left_id == philo->right_id)
 	{
 		pthread_mutex_lock(philo->table->forks[0]);
@@ -87,11 +88,8 @@ void	*thread_routine(void *vd)
 		pthread_mutex_unlock(philo->table->forks[0]);
 		return (NULL);
 	}
-	if (philo->id % 2 == 0)
-	{
-		usleep(5000);
-		set_last_eat(philo);
-	}
+	if (philo->id % 2 != 0)
+		usleep(100);
 	start(philo, 0);
 	return (NULL);
 }

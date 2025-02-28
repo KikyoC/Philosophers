@@ -6,12 +6,11 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:34:30 by tom               #+#    #+#             */
-/*   Updated: 2025/02/25 14:22:57 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:15:15 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <pthread.h>
 
 void	destroy_forks(pthread_mutex_t **forks)
 {

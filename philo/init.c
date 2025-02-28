@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:05:49 by tom               #+#    #+#             */
-/*   Updated: 2025/02/25 16:43:52 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:28:01 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_philosopher	*create_philosopher(int id, t_table *table)
 		return (NULL);
 	}
 	pthread_mutex_init(res->last_eat_m, NULL);
+	set_last_eat(res);
 	res->id = id;
 	res->left_id = id - 1;
 	if (table->forks[id] == NULL)
@@ -80,6 +81,7 @@ int	start_threads(t_table *table)
 {
 	t_philosopher	*current;
 	int				i;
+	pthread_t		die_manager;
 
 	current = table->first;
 	i = 0;
@@ -90,6 +92,8 @@ int	start_threads(t_table *table)
 		i++;
 		current = current->next;
 	}
+	pthread_create(&die_manager, NULL, die_routine, table);
+	table->die_manager = die_manager;
 	return (1);
 }
 

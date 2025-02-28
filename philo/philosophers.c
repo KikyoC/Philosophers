@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:33:46 by tom               #+#    #+#             */
-/*   Updated: 2025/02/25 15:02:17 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:14:50 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,16 @@ void	join_threads(t_table *table)
 		pthread_join(current->thread, NULL);
 		current = current->next;
 	}
+	pthread_join(table->die_manager, NULL);
 }
 
 int	main(int argc, char **argv)
 {
 	t_table		table;
-	pthread_t	die_checker;
 
 	if (!parse(argc, argv, &table))
 		return (1);
 	create_table(&table);
-	usleep(1000);
-	pthread_create(&die_checker, NULL, die_routine, &table);
 	join_threads(&table);
 	destroy_table(&table);
 }
