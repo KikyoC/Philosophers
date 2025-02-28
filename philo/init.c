@@ -6,14 +6,11 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:05:49 by tom               #+#    #+#             */
-/*   Updated: 2025/02/24 16:11:41 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/28 14:39:02 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <bits/pthreadtypes.h>
-#include <pthread.h>
-#include <sys/time.h>
 
 void	add_back(t_table *table, t_philsopher *to_add)
 {
@@ -65,10 +62,11 @@ t_philsopher	*create_philosopher(int id, t_table *table)
 		return (NULL);
 	res->last_eat_m = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!res->last_eat_m)
-	{
-		free(res);
-		return (NULL);
-	}
+		return (destroy_philosopher(res));
+	res->rounds_m = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!res->rounds_m)
+		return (destroy_philosopher(res));
+	pthread_mutex_init(res->rounds_m, NULL);
 	pthread_mutex_init(res->last_eat_m, NULL);
 	res->id = id;
 	res->left_id = id - 1;
@@ -89,17 +87,17 @@ int start_threads(t_table *table, int pair)
 	{
 		if ((pair && i % 2 == 0) || (!pair && i % 2 != 0))
 		{
-			if (pthread_create(&current->thread, NULL, thread_routine, current))
-				return (0);
 			gettimeofday(&tv, NULL);
 			current->last_eat = tv.tv_sec * 1000 +  tv.tv_usec / 1000;
+			if (pthread_create(&current->thread, NULL, thread_routine, current))
+				return (0);
 		}
 		i++;
 		current = current->next;
 	}
 	if (!pair)
 	{
-		usleep(10000);
+		usleep(100);
 		return (start_threads(table, 1));
 	}
 	return (1);

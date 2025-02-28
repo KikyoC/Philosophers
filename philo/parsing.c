@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:46:33 by tom               #+#    #+#             */
-/*   Updated: 2025/02/24 16:32:16 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/28 14:31:30 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	to_int(char *c)
 	}
 	if (ft_strncmp(c, str, len) || res <= 0)
 	{
+		free(str);
 		write(2, "Parameter not good\n", 19);
 		return (0);
 	}
@@ -48,6 +49,12 @@ int	parse(int argc, char **argv, t_table *table)
 	table->die_time = to_int(argv[2]);
 	table->eat_time = to_int(argv[3]);
 	table->sleep_time = to_int(argv[4]);
+
+	table->count = 4;
+	table->die_time = 8000;
+	table->eat_time = 100;
+	table->sleep_time = 100;
+	
 	if (argc == 6)
 		table->rounds = to_int(argv[5]);
 	else

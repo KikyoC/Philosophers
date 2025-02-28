@@ -6,12 +6,11 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:34:30 by tom               #+#    #+#             */
-/*   Updated: 2025/02/24 16:23:20 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:32:37 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <pthread.h>
 
 void	destroy_forks(pthread_mutex_t **forks)
 {
@@ -29,14 +28,22 @@ void	destroy_forks(pthread_mutex_t **forks)
 	free(forks);
 }
 
-void	destroy_philosopher(t_philsopher *philo)
+void	*destroy_philosopher(t_philsopher *philo)
 {
+	if (!philo)
+		return (NULL);
 	if (philo->last_eat_m)
 	{
 		pthread_mutex_destroy(philo->last_eat_m);
 		free(philo->last_eat_m);
 	}
+	if (philo->rounds_m)
+	{
+		pthread_mutex_destroy(philo->rounds_m);
+		free(philo->rounds_m);
+	}
 	free(philo);
+	return (NULL);
 }
 
 void	destroy_table(t_table *table)
