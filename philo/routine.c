@@ -6,11 +6,12 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:26:30 by tom               #+#    #+#             */
-/*   Updated: 2025/03/10 11:20:36 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:14:10 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include <pthread.h>
 #include <unistd.h>
 
 void    ft_usleep(int t, t_table *table)
@@ -55,6 +56,8 @@ void	philo_eat(t_philosopher *philo)
 
 void	philo_sleep(t_philosopher *philo)
 {
+	if (is_died(philo->table))
+		return ;
 	print_message(philo, "is sleeping");
 	ft_usleep(philo->table->sleep_time, philo->table);
 	if (is_died(philo->table))
@@ -62,6 +65,15 @@ void	philo_sleep(t_philosopher *philo)
 	print_message(philo, "is thinking");
 }
 
+void	*alone_philo(t_philosopher *philo)
+{
+	pthread_mutex_lock(philo->table->forks[0]);
+	print_message(philo, "has taken a fork");
+	while (!is_died(philo->table))
+		usleep(1000);
+	pthread_mutex_unlock(philo->table->forks[0]);
+	return (NULL);
+}
 void	*thread_routine(void *vd)
 {
 	t_philosopher	*philo;
@@ -69,6 +81,8 @@ void	*thread_routine(void *vd)
 
 	round = 0;
 	philo = (t_philosopher *)vd;
+	if (philo->left_id == philo->right_id)
+		return (alone_philo(philo));
 	if (philo->id % 2)
 		usleep(100);
 	while (1)

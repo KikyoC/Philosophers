@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:34:49 by togauthi          #+#    #+#             */
-/*   Updated: 2025/03/10 11:13:50 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:55:50 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*die_routine(void *vd)
 	current = table->first;
 	while (!is_died(table))
 	{
-		usleep(1000);
+		usleep(100);
 		if (!current)
 			current = table->first;
 		gettimeofday(&tv, NULL);

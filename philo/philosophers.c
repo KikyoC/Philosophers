@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:33:46 by tom               #+#    #+#             */
-/*   Updated: 2025/03/10 11:18:00 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:23:27 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int	main(int argc, char **argv)
 		return (1);
 	create_table(&table);
 	join_threads(&table);
-	// destroy_table(&table);
+	destroy_table(&table);
 }

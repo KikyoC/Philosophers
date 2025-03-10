@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:46:33 by tom               #+#    #+#             */
-/*   Updated: 2025/03/10 11:18:12 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:17:30 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ int	parse(int argc, char **argv, t_table *table)
 	if (argc < 5)
 	{
 		write(2, "Not enough arguments\n", 21);
+		return (0);
+	}
+	if (argc > 6)
+	{
+		write(2, "Too many arguments\n", 19);
 		return (0);
 	}
 	table->count = to_int(argv[1]);
