@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:14:41 by togauthi          #+#    #+#             */
-/*   Updated: 2025/02/28 14:22:51 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/10 09:41:07 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	is_full_eat(t_philsopher *philo)
 	pthread_mutex_lock(philo->rounds_m);
 	res = philo->rounds;
 	pthread_mutex_unlock(philo->rounds_m);
-	return (res >= philo->table->rounds);
+	return (philo->table->rounds > 0 && res >= philo->table->rounds);
 }
 
 int	all_full_eat(t_table *table)
