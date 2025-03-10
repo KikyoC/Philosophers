@@ -6,15 +6,13 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:26:30 by tom               #+#    #+#             */
-/*   Updated: 2025/03/10 16:14:10 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:22:16 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <pthread.h>
-#include <unistd.h>
 
-void    ft_usleep(int t, t_table *table)
+void	ft_usleep(int t, t_table *table)
 {
 	long			end_time;
 	struct timeval	tv;
@@ -53,7 +51,6 @@ void	philo_eat(t_philosopher *philo)
 	pthread_mutex_unlock(philo->table->forks[philo->right_id]);
 }
 
-
 void	philo_sleep(t_philosopher *philo)
 {
 	if (is_died(philo->table))
@@ -74,6 +71,7 @@ void	*alone_philo(t_philosopher *philo)
 	pthread_mutex_unlock(philo->table->forks[0]);
 	return (NULL);
 }
+
 void	*thread_routine(void *vd)
 {
 	t_philosopher	*philo;

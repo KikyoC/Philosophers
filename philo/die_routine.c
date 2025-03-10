@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:34:49 by togauthi          #+#    #+#             */
-/*   Updated: 2025/03/10 14:55:50 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:23:12 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,15 @@ void	*die_routine(void *vd)
 		if (!current)
 			current = table->first;
 		gettimeofday(&tv, NULL);
-		if ((tv.tv_sec * 1000 + tv.tv_usec / 1000) - get_last_eat(current) > table->die_time)
+		if ((tv.tv_sec * 1000 + tv.tv_usec / 1000)
+			- get_last_eat(current) > table->die_time)
 		{
 			print_message(current, "died");
 			set_died(table);
 			return (NULL);
 		}
 		if (all_full_eat(table))
-		{
 			set_died(table);
-			return (NULL);
-		}
 		current = current->next;
 	}
 	return (NULL);
