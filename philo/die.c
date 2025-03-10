@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:34:52 by togauthi          #+#    #+#             */
-/*   Updated: 2025/02/24 15:04:18 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:15:06 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	set_died(t_table *table)
 int	is_died(t_table *table)
 {
 	int	res;
+
 	pthread_mutex_lock(table->die);
 	res = table->someone_died;
 	pthread_mutex_unlock(table->die);

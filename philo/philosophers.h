@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:34:52 by tom               #+#    #+#             */
-/*   Updated: 2025/02/28 14:21:00 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:13:47 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_philosopher
 	pthread_mutex_t			*last_eat_m;
 	int						rounds;
 	pthread_mutex_t			*rounds_m;
-}	t_philsopher;
+}	t_philosopher;
 
 typedef struct s_table
 {
@@ -47,6 +47,7 @@ typedef struct s_table
 	pthread_mutex_t			**forks;
 	pthread_mutex_t			*print;
 	pthread_mutex_t			*die;
+	pthread_t				die_manager;
 }	t_table;
 
 char	*ft_itoa(int n);
@@ -65,7 +66,7 @@ void	*thread_routine(void *vd);
 
 void	destroy_table(t_table *table);
 
-void	print_message(t_philsopher *philo, char *str);
+void	print_message(t_philosopher *philo, char *str);
 
 int		is_died(t_table *table);
 
@@ -73,18 +74,18 @@ void	set_died(t_table *table);
 
 void	*die_routine(void *vd);
 
-void	set_last_eat(t_philsopher *philo);
+void	set_last_eat(t_philosopher *philo);
 
-long	get_last_eat(t_philsopher *philo);
+long	get_last_eat(t_philosopher *philo);
 
-int		is_full_eat(t_philsopher *philo);
+int		is_full_eat(t_philosopher *philo);
 
-void	set_full_eat(t_philsopher *philo);
+void	set_full_eat(t_philosopher *philo);
 
-void	*destroy_philosopher(t_philsopher *philo);
+void	*destroy_philosopher(t_philosopher *philo);
 
 int		all_full_eat(t_table *table);
 
-void	increment_eat(t_philsopher *philo);
+void	increment_eat(t_philosopher *philo);
 
 #endif

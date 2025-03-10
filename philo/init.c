@@ -6,27 +6,25 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:05:49 by tom               #+#    #+#             */
-/*   Updated: 2025/03/10 10:06:47 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:18:27 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	add_back(t_table *table, t_philsopher *to_add)
+void	add_back(t_table *table, t_philosopher *to_add)
 {
-	t_philsopher	*current;
+	t_philosopher	*current;
 
 	current = table->first;
 	if (!current)
 	{
 		table->first = to_add;
-		to_add->right_id = 1;
 		return ;
 	}
 	while (current->next)
 		current = current->next;
 	current->next = to_add;
-	current->right_id = to_add->left_id;
 }
 
 pthread_mutex_t	**get_forks(t_table *table)
@@ -53,11 +51,11 @@ pthread_mutex_t	**get_forks(t_table *table)
 	return (res);
 }
 
-t_philsopher	*create_philosopher(int id, t_table *table)
+t_philosopher	*create_philosopher(int id, t_table *table)
 {
-	t_philsopher	*res;
+	t_philosopher	*res;
 
-	res = ft_calloc(1, sizeof(t_philsopher));
+	res = ft_calloc(1, sizeof(t_philosopher));
 	if (!res)
 		return (NULL);
 	res->last_eat_m = ft_calloc(1, sizeof(pthread_mutex_t));
@@ -68,38 +66,35 @@ t_philsopher	*create_philosopher(int id, t_table *table)
 		return (destroy_philosopher(res));
 	pthread_mutex_init(res->rounds_m, NULL);
 	pthread_mutex_init(res->last_eat_m, NULL);
+	set_last_eat(res);
 	res->id = id;
 	res->left_id = id - 1;
+	if (table->forks[id] == NULL)
+		res->right_id = 0;
+	else
+		res->right_id = id;
 	res->table = table;
 	add_back(table, res);
 	return (res);
 }
 
-int start_threads(t_table *table, int pair)
+int	start_threads(t_table *table)
 {
-	t_philsopher	*current;
+	t_philosopher	*current;
 	int				i;
-	struct timeval	tv;
+	pthread_t		die_manager;
 
 	current = table->first;
 	i = 0;
 	while (current)
 	{
-		if ((pair && i % 2 == 0) || (!pair && i % 2 != 0))
-		{
-			gettimeofday(&tv, NULL);
-			current->last_eat = tv.tv_sec * 1000 +  tv.tv_usec / 1000;
-			if (pthread_create(&current->thread, NULL, thread_routine, current))
-				return (0);
-		}
+		if (pthread_create(&current->thread, NULL, thread_routine, current))
+			return (0);
 		i++;
 		current = current->next;
 	}
-	if (!pair)
-	{
-		usleep(100);
-		return (start_threads(table, 1));
-	}
+	pthread_create(&die_manager, NULL, die_routine, table);
+	table->die_manager = die_manager;
 	return (1);
 }
 
@@ -126,6 +121,6 @@ int	create_table(t_table *table)
 			return (0);
 		i++;
 	}
-	start_threads(table, 0);
+	start_threads(table);
 	return (1);
 }

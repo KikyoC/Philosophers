@@ -6,7 +6,7 @@
 /*   By: togauthi <togauthi@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:34:49 by togauthi          #+#    #+#             */
-/*   Updated: 2025/03/10 10:09:05 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:13:50 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	*die_routine(void *vd)
 {
 	t_table			*table;
-	t_philsopher	*current;
+	t_philosopher	*current;
 	struct timeval	tv;
 
 	table = (t_table *) vd;
@@ -37,6 +37,7 @@ void	*die_routine(void *vd)
 			set_died(table);
 			return (NULL);
 		}
+		current = current->next;
 	}
 	return (NULL);
 }
