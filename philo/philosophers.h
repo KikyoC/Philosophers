@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:34:52 by tom               #+#    #+#             */
-/*   Updated: 2025/03/10 11:13:47 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:05:09 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,6 @@ void	*die_routine(void *vd);
 void	set_last_eat(t_philosopher *philo);
 
 long	get_last_eat(t_philosopher *philo);
-
-int		is_full_eat(t_philosopher *philo);
-
-void	set_full_eat(t_philosopher *philo);
 
 void	*destroy_philosopher(t_philosopher *philo);
 

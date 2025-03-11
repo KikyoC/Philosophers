@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 12:26:30 by tom               #+#    #+#             */
-/*   Updated: 2025/03/10 16:22:16 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:05:04 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ void	*alone_philo(t_philosopher *philo)
 void	*thread_routine(void *vd)
 {
 	t_philosopher	*philo;
-	int				round;
 
-	round = 0;
 	philo = (t_philosopher *)vd;
 	if (philo->left_id == philo->right_id)
 		return (alone_philo(philo));
@@ -89,7 +87,6 @@ void	*thread_routine(void *vd)
 		philo_sleep(philo);
 		if (is_died(philo->table))
 			return (NULL);
-		round ++;
 	}
 	return (NULL);
 }
