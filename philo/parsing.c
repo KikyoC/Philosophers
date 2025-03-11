@@ -6,7 +6,7 @@
 /*   By: tom <tom@42angouleme.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:46:33 by tom               #+#    #+#             */
-/*   Updated: 2025/03/10 16:21:27 by togauthi         ###   ########.fr       */
+/*   Updated: 2025/03/11 09:39:27 by togauthi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int	parse(int argc, char **argv, t_table *table)
 	return (table->die_time
 		&& table->rounds
 		&& table->sleep_time
-		&& table->eat_time);
+		&& table->eat_time
+		&& table->count);
 }
